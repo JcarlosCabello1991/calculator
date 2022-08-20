@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=!, initial-scale=1.0">
+    <link id="estilos" rel="stylesheet" href="./css/stylesheet.css">
+    <!-- <script src="https://kit.fontawesome.com/a8609ee1f0.js" crossorigin="anonymous"></script> -->
+    <title>Document</title>
+</head>
+<body>
+<main class="calculator color-calculator-bright">
+    <!-- button -->
+        <div class="top-bar">
+            <div class="top-bar-buttons-colors">
+                <div class="button-colors"><!--<i class="fa-solid fa-xmark"></i>--></div>
+                <div class="button-colors"></div>
+                <div class="button-colors"></div>
+            </div>
+            <!-- <div id="button-log"><a class="button-lg">Console Log<a></div> -->
+                <button id="button-log">Console Log</button>
+            <div class="button-aspect-container-bright">
+                <div class="button-aspect-bright" onclick="modo(event)">
+                </div>
+            </div>
+        </div>
+    
+        <!-- Screen -->
+        <div class="screen color color-combi-bright">0</div>
+        <!-- Keyboard -->
+        <div id="buttons-calculator" class="button-container color-button-container-bright">
+            <div class="button-operation color-combi" onclick="operationReset()"><span>C</span></div>
+            <div class="button-operation color-combi" onclick="plusMinus()"><span>±</span></div>
+            <div class="button-operation color-combi" onclick="numButtonFuction(event)"><span>%</span></div>
+            <div class="button-operation color-combi" onclick="numButtonFuction(event)"><span>÷</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>7</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>8</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>9</span></div>
+            <div class="button-operation color-combi" onclick="numButtonFuction(event)" data-value="*"><span>x</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>4</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>5</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>6</span></div>
+            <div class="button-operation color-combi" onclick="numButtonFuction(event)"><span>-</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)" data-value="1"><span>1</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>2</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>3</span></div>
+            <div class="button-operation color-combi" onclick="numButtonFuction(event)" data-value="+"><span>+</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>0</span></div>
+            <div class="button-number color-combi-nums" onclick="numButtonFuction(event)"><span>.</span></div>
+            <span></span>
+            <div class="button-equal-sign color-button-equal" onclick="operationEqual()"><span>=</span></div>
+        </div>
+</main>
+    <script src="./src/js/main.js"></script>
+</body>
+</html>
+
+<!-- 
+    // Display results on the screen
+  $inputDisplay.value = result;
+  // Data log to an Array
+  if (event.target.value === "=") {
+    // replace ',' on array
+    let strLogging = arr.join(" ");
+    let logResults = `${strLogging} ${result}`;
+    // get DOM elements
+    const ListDataLog = document.querySelector("ul");
+    // check if empty
+    if (logResults !== "") {
+      const liLog = document.createElement("li");
+      // dark mode or light mode
+      if ($inputDisplay.classList.contains("dark")) {
+        liLog.classList.add("darklog");
+        liLog.textContent = logResults.toLowerCase();
+        ListDataLog.appendChild(liLog);
+      } else {
+        liLog.textContent = logResults.toLowerCase();
+        ListDataLog.appendChild(liLog);
+      }
+    }
+    // reset array
+    arr = [];
+  }
+  // Resize based on result lenght
+  displaySize();
+}
+ -->
+
+ const opInputs = document.querySelectorAll(".operation");
+opInputs.forEach((element) => {
+  element.addEventListener("click", FuncionMiguelSimple);
+});
+function FuncionMiguelSimple(event) {
+  strNumber = "0";
+  const $inputDisplay = document.querySelector(".display input");
+  // store display value in Array
+  arr.push($inputDisplay.value);
+  arr.push(event.target.value);
+  // small display
+  const $inputDisplaySmall = document.querySelector(".displaysmall input");
+  $inputDisplaySmall.value = arr.join(" ").toLowerCase();
+  // First value
+  result = parseFloat(arr[0]);
+
+  // loop to return results
+  if (arr.length > 2) {
+    arr.forEach((element, i) => {
+      // avoid the last operation in the Array and numbers
+      if (!parseFloat(element) && i !== arr.length - 1) {
+        switch (element) {
+          case "+":
+            result += parseFloat(arr[i + 1]);
+            break;
+          case "-":
+            result -= parseFloat(arr[i + 1]);
+            break;
+          case "X":
+            result *= parseFloat(arr[i + 1]);
+            break;
+          case "÷":
+            result /= parseFloat(arr[i + 1]);
+            break;
+          case "%":
+            result %= parseFloat(arr[i + 1]);
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  }
